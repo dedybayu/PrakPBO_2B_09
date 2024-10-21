@@ -43,10 +43,8 @@ public class Pemain {
                 System.out.println("\n=============================================");
                 System.out.println("=> Daftar Lahan Yang Dimiliki:");
                 System.out.println("=============================================");
-                System.out.println("=================================");
                 System.out.println("| => Lahan " + i);
                 lahan2.printDetailLahan();
-                System.out.println("=================================");
                 System.out.println("=============================================\n");
             }
         }
@@ -101,15 +99,15 @@ public class Pemain {
                 }
                 System.out.println("=> " + (jmlLahan + 1) + ". Batal");
                 System.out.println("=============================================");
-                System.out.print("=> Pilih Lahan: ");
+                System.out.print("=> Pilih Lahan : ");
 
                 int pilihanLahan = sc.nextInt();
 
                 if (pilihanLahan >= 1 && pilihanLahan <= jmlLahan) {
-                    masukKeLahan(lahan.get(pilihanLahan - 1)); // Tanam lahan terpilih
+                    masukKeLahan(lahan.get(pilihanLahan - 1));
                 } else if (pilihanLahan == (jmlLahan + 1)) {
                     System.out.println("Keluar");
-                    ulangi = false; // Exit the loop
+                    ulangi = false;
                 } else {
                     System.out.println("Pilihan di luar rentang, coba lagi.");
                 }
@@ -134,9 +132,10 @@ public class Pemain {
             }
 
             System.out.println("\n=============================================");
-            System.out.println("| --ANDA BERADA DI LAHAN " + lahan.getId() + " Hari ke " + waktu.getHari() + ", "
+            System.out.println("| ANDA BERADA DI LAHAN " + lahan.getId() + " Hari ke " + waktu.getHari() + ", "
                     + waktu.getStrHari());
             waktu.printDetailCuaca();
+            System.out.println("=============================================");
             System.out.println("| 1 => Tanami Tanaman di Lahan");
             System.out.println("| 2 => Siram Lahan");
             System.out.println("| 3 => Cek Info Lahan");
@@ -146,12 +145,12 @@ public class Pemain {
             System.out.println("=============================================");
             int menu;
             do {
-                System.out.print("Pilih Menu: ");
+                System.out.print("=> Pilih Menu : ");
                 menu = sc.nextInt();
-                if (menu < 1 || menu > 5) {
+                if (menu < 1 || menu > 6) {
                     System.out.println("Salah Pilih. Silakan pilih antara 1 sampai 5.");
                 }
-            } while (menu < 1 || menu > 5);
+            } while (menu < 1 || menu > 6);
 
             switch (menu) {
                 case 1:
@@ -163,6 +162,7 @@ public class Pemain {
                                 System.out.println("| Tanami Bibit Apa");
                                 bibit.tampilDaftarBibit();
                                 System.out.println((bibit.getJumlahBibit() + 1) + ". Batal");
+                                System.out.println("=============================================");
                                 System.out.print("=>Tanam Bibit Nomor: ");
                                 int noBibit = sc.nextInt();
                                 if (noBibit <= bibit.getJumlahBibit()) {

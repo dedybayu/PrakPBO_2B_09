@@ -78,8 +78,11 @@ public class Lahan {
             } else {
                 System.out.println("Kondisi Tanaman " + tanaman.getNama() + " Sedang Sakit");
             }
+            System.out.println("=============================================\n");
         } else {
-            System.out.println("Lahan Belum Ditanami Tanaman");
+            System.out.println("=============================================");
+            System.out.println("|Lahan Belum Ditanami Tanaman               |");
+            System.out.println("=============================================\n");
         }
     }
 }

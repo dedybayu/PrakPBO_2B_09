@@ -2,14 +2,14 @@ package UtsPBO;
 
 public abstract class Tanaman {
     protected String nama;
-    protected int waktuPanen;  // Jumlah hari hingga panen
-    protected int kebutuhanAir; // Jumlah air yang dibutuhkan per hari
+    protected int waktuPanen;
+    protected int kebutuhanAir;
     protected int hargaBibit;
     protected int hargaPanen;
     protected boolean sakit;
     protected boolean mati;
     protected boolean siapPanen;
-    protected int hariTidakDisiram; // Jumlah hari tidak disiram
+    protected int hariTidakDisiram;
 
     public Tanaman(String nama, int waktuPanen, int kebutuhanAir, int hargaBibit) {
         this.nama = nama;
@@ -19,7 +19,7 @@ public abstract class Tanaman {
         this.sakit = false;
         this.mati = false;
         this.siapPanen = false;
-        this.hariTidakDisiram = 0; // Awalnya tanaman baru ditanam jadi belum ada hari tidak disiram
+        this.hariTidakDisiram = 0;
     }
 
     public String getNama(){
@@ -30,7 +30,7 @@ public abstract class Tanaman {
         return hargaBibit;
     }
 
-    public abstract void tumbuh(); // Polimorfisme
+    public abstract void tumbuh();
 
     public void panen() {
         if (mati) {
@@ -57,7 +57,7 @@ public abstract class Tanaman {
 
     public void siram() {
         if (!mati) {
-            hariTidakDisiram = 0; // Reset jumlah hari tidak disiram setelah disiram
+            hariTidakDisiram = 0;
             System.out.println(nama + " disiram.");
         } else {
             System.out.println(nama + " sudah mati, tidak bisa disiram.");
@@ -68,13 +68,11 @@ public abstract class Tanaman {
         hariTidakDisiram++;
         System.out.println(nama + " tidak disiram hari ini. Total hari tidak disiram: " + hariTidakDisiram);
 
-        // Jika lebih dari 2 hari tidak disiram, tanaman menjadi sakit
         if (hariTidakDisiram >= 3 && hariTidakDisiram < 5) {
             sakit = true;
             System.out.println(nama + " sakit karena tidak disiram!");
         }
 
-        // Jika lebih dari 4 hari tidak disiram, tanaman mati
         if (hariTidakDisiram >= 5) {
             mati = true;
             System.out.println(nama + " mati karena tidak disiram!");

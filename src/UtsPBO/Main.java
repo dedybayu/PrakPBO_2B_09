@@ -22,7 +22,9 @@ public class Main {
                 pemain.tanamiLahan();
             } else if (menu == 6){
                 System.exit(0);
-            } 
+            } else {
+                System.out.println("Salah Pilih");
+            }
         }
 
 
@@ -47,20 +49,19 @@ public class Main {
     }
 
     private static void menuAwal(Pemain pemain){
-        System.out.println("============================================================");
+        System.out.println("\n============================================================");
         System.out.printf("| NamaPemain: %s, Uang: %d, Energi: %d/100\n", pemain.getNama(), pemain.getUang() ,pemain.getEnergi());
+        System.out.println("============================================================");
         System.out.println("| => 1. Beli Lahan");
         System.out.println("| => 2. Beli Bibit");
-        System.out.println("| => 3. Daftar Bibit");
-        System.out.println("| => 4. Beli Lahan");
+        System.out.println("| => 3. Tampilkan Daftar Bibit");
+        System.out.println("| => 4. Tampilkan Daftar Lahan");
         System.out.println("| => 5. Mulai Menanam");
         System.out.println("| => 6. Keluar");
-
-    }
-
-    private static void menuPermainan(Pemain pemain){
         System.out.println("============================================================");
-        System.out.printf("| NamaPemain: %s, Uang: %d, Energi: %d/100\n", pemain.getNama(), pemain.getUang() ,pemain.getEnergi());
+
+        System.out.print("=> Pilih Menu : ");
+
     }
 
     public static void clear() {
