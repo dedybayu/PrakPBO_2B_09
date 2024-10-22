@@ -31,10 +31,6 @@ public class Pemain {
         return uang;
     }
 
-    public void setUang(int uang) {
-        this.uang = uang;
-    }
-
     public int getEnergi() {
         return energi;
     }
