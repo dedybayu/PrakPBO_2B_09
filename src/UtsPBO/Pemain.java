@@ -9,11 +9,35 @@ public class Pemain {
     private int uang;
     private int energi;
     private Waktu waktu;
-    private int energiAwal = energi;
     private Toko toko = new Toko();
     private Bibit bibit = new Bibit();
     private List<Lahan> lahan = new ArrayList<>();
+    private Gudang gudang = new Gudang();
     private Scanner sc = new Scanner(System.in);
+    private Scanner sc2 = new Scanner(System.in);
+
+    public Pemain(String nama, int uang, int energi) {
+        this.nama = nama;
+        this.uang = uang;
+        this.energi = energi;
+        this.waktu = new Waktu();
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public int getUang() {
+        return uang;
+    }
+
+    public void setUang(int uang) {
+        this.uang = uang;
+    }
+
+    public int getEnergi() {
+        return energi;
+    }
 
     public void beliLahan() {
         Lahan lahanBaru;
@@ -54,38 +78,6 @@ public class Pemain {
         bibit.tampilDaftarBibit();
     }
 
-    public Pemain(String nama, int uang, int energi) {
-        this.nama = nama;
-        this.uang = uang;
-        this.energi = energi;
-        this.waktu = new Waktu();
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public int getUang() {
-        return uang;
-    }
-
-    public void setUang(int uang) {
-        this.uang = uang;
-    }
-
-    public int getEnergi() {
-        return energi;
-    }
-
-    public void kurangiEnergi(int jumlah) {
-        energi -= jumlah;
-        System.out.println("Energi berkurang, sisa energi: " + energi);
-    }
-
-    public void kembalikanEnergi() {
-        energi = energiAwal;
-    }
-
     public void tanamiLahan() {
         if (lahan.isEmpty()) {
             System.out.println("Belum ada Lahan untuk ditanami");
@@ -116,113 +108,235 @@ public class Pemain {
     }
 
     private void masukKeLahan(Lahan lahan) {
-        System.out.println();
-        if (lahan.getTanaman() != null) {
-            System.out.println("Lanjutkan Permainan Pertanian");
-        } else {
-            System.out.println("Mulai Permainan Pertanian");
-        }
-        boolean ulangMenu = true;
-        boolean disiram = false;
-
-        do {
-
-            if (waktu.getKondisiCuaca().equalsIgnoreCase("Hujan")) {
-                disiram = true;
+        if (energi > 0) {
+            System.out.println();
+            if (lahan.getTanaman() != null) {
+                System.out.println("Lanjutkan Permainan Pertanian");
+            } else {
+                System.out.println("Mulai Permainan Pertanian");
             }
+            boolean ulangMenu = true;
+            boolean disiram = false;
 
-            System.out.println("\n=============================================");
-            System.out.println("| ANDA BERADA DI LAHAN " + lahan.getId() + " Hari ke " + waktu.getHari() + ", "
-                    + waktu.getStrHari());
-            waktu.printDetailCuaca();
-            System.out.println("=============================================");
-            System.out.println("| 1 => Tanami Tanaman di Lahan");
-            System.out.println("| 2 => Siram Lahan");
-            System.out.println("| 3 => Cek Info Lahan");
-            System.out.println("| 4 => Maju Hari");
-            System.out.println("| 5 => Panen");
-            System.out.println("| 6 => Keluar");
-            System.out.println("=============================================");
-            int menu;
             do {
-                System.out.print("=> Pilih Menu : ");
-                menu = sc.nextInt();
-                if (menu < 1 || menu > 6) {
-                    System.out.println("Salah Pilih. Silakan pilih antara 1 sampai 5.");
+
+                if (waktu.getKondisiCuaca().equalsIgnoreCase("Hujan")) {
+                    disiram = true;
                 }
-            } while (menu < 1 || menu > 6);
 
-            switch (menu) {
-                case 1:
-                    if (lahan.getTanaman() == null) {
-                        if (!bibit.isEmpty()) {
-                            boolean ulangMenuTanam = true;
-                            do {
-                                System.out.println("\n=============================================");
-                                System.out.println("| Tanami Bibit Apa");
-                                bibit.tampilDaftarBibit();
-                                System.out.println((bibit.getJumlahBibit() + 1) + ". Batal");
-                                System.out.println("=============================================");
-                                System.out.print("=>Tanam Bibit Nomor: ");
-                                int noBibit = sc.nextInt();
-                                if (noBibit <= bibit.getJumlahBibit()) {
-                                    lahan.tanam(bibit.ambilBibit((noBibit - 1)));
-                                    ulangMenuTanam = false;
-                                } else if (noBibit == (bibit.getJumlahBibit() + 1)) {
-                                    ulangMenuTanam = false;
+                if (energi > 0) {
+                    System.out.println("\n============================================================");
+                    System.out.printf("| NamaPemain: %s, Uang: Rp.%d, Energi: %d/100\n", nama, uang, energi);
+                    System.out.println("| ANDA BERADA DI LAHAN " + lahan.getId() + " Hari ke " + waktu.getHari() + ", "
+                            + waktu.getStrHari());
+                    waktu.printDetailCuaca();
+                    System.out.println("============================================================");
+                    System.out.println("| 1 => Tanami Tanaman di Lahan");
+                    System.out.println("| 2 => Siram Lahan");
+                    System.out.println("| 3 => Cek Info Lahan");
+                    System.out.println("| 4 => Maju Hari");
+                    System.out.println("| 5 => Panen");
+                    System.out.println("| 6 => Keluar");
+                    System.out.println("============================================================");
+                    int menu;
+                    do {
+                        System.out.print("=> Pilih Menu : ");
+                        menu = sc.nextInt();
+                        if (menu < 1 || menu > 6) {
+                            System.out.println("Salah Pilih. Silakan pilih antara 1 sampai 5.");
+                        }
+                    } while (menu < 1 || menu > 6);
+
+                    switch (menu) {
+                        case 1:
+                            if (lahan.getTanaman() == null) {
+                                if (!bibit.isEmpty()) {
+                                    boolean ulangMenuTanam = true;
+                                    do {
+                                        System.out.println("\n=============================================");
+                                        System.out.println("| Tanami Bibit Apa");
+                                        bibit.tampilDaftarBibit();
+                                        System.out.println((bibit.getJumlahBibit() + 1) + ". Batal");
+                                        System.out.println("=============================================");
+                                        System.out.print("=>Tanam Bibit Nomor: ");
+                                        int noBibit = sc.nextInt();
+                                        if (noBibit <= bibit.getJumlahBibit()) {
+                                            lahan.tanam(bibit.ambilBibit((noBibit - 1)));
+                                            energi -= 10;
+                                            ulangMenuTanam = false;
+                                        } else if (noBibit == (bibit.getJumlahBibit() + 1)) {
+                                            ulangMenuTanam = false;
+                                        }
+                                    } while (ulangMenuTanam == true);
+
+                                } else {
+                                    System.out.println("Belum ada bibit untuk ditanam, silahkan beli dulu");
                                 }
-                            } while (ulangMenuTanam == true);
-
-                        } else {
-                            System.out.println("Belum ada bibit untuk ditanam, silahkan beli dulu");
-                        }
-                    } else {
-                        System.out.println("Lahan sudah ditanami " + lahan.getTanaman().nama);
-                    }
-                    break;
-
-                case 2:
-                    if (lahan.getTanaman() != null) {
-                        if (disiram == true) {
-                            if (waktu.getKondisiCuaca().equalsIgnoreCase("Hujan")) {
-                                System.out.println("Lahan Hari ini Sudah Disiram oleh Hujan");
-
                             } else {
-                                System.out.println("Lahan Hari ini Sudah Disiram");
+                                System.out.println("Lahan sudah ditanami " + lahan.getTanaman().nama);
                             }
-                        } else {
-                            disiram = true;
-                            lahan.siram();
-                        }
-                    } else {
-                        System.out.println("Tidak ada tanaman untuk disiram");
+                            break;
+
+                        case 2:
+                            if (lahan.getTanaman() != null) {
+                                if (disiram == true) {
+                                    if (waktu.getKondisiCuaca().equalsIgnoreCase("Hujan")) {
+                                        System.out.println("Lahan Hari ini Sudah Disiram oleh Hujan");
+
+                                    } else {
+                                        System.out.println("Lahan Hari ini Sudah Disiram");
+                                    }
+                                } else {
+                                    disiram = true;
+                                    lahan.siram();
+                                    energi -= 5;
+                                }
+                            } else {
+                                System.out.println("Tidak ada tanaman untuk disiram");
+                            }
+                            break;
+
+                        case 3:
+                            lahan.printDetailLahan();
+                            break;
+
+                        case 4:
+                            if (waktu.getKondisiCuaca().equalsIgnoreCase("Hujan")) {
+                                lahan.siram();
+                            }
+                            if (lahan.getTanaman() != null) {
+                                if (disiram == false) {
+                                    lahan.tidakDisiram();
+                                }
+                                lahan.tumbuh();
+                            }
+
+                            waktu.majuHari();
+                            disiram = false;
+                            break;
+
+                        case 5:
+                            Tanaman hasilPanen = lahan.panen();
+                            if (hasilPanen != null) {
+                                gudang.addHasilPanen(hasilPanen);
+                                energi -= 7;
+                            }
+                            break;
+
+                        case 6:
+                            ulangMenu = false;
+                            break;
                     }
+                } else {
+                    System.out.println("Energi Telah Habis, Silahkan Kembalikan Energi");
                     break;
+                }
 
-                case 3:
-                    lahan.printDetailLahan();
-                    break;
-
-                case 4:
-                    if (lahan.getTanaman() != null) {
-                        if (disiram == false) {
-                            lahan.tidakDisiram();
-                        }
-                        lahan.tumbuh();
-                    }
-
-                    waktu.majuHari();
-                    break;
-
-                case 5:
-                    lahan.panen();
-                    break;  
-
-                case 6:
-                    ulangMenu = false;
-                    break;
-            }
-        } while (ulangMenu == true);
+            } while (ulangMenu == true);
+        } else {
+            System.out.println("Energi Telah Habis, Silahkan Kembalikan Energi");
+        }
     }
 
+    public void jualHasilPanen() {
+        if (gudang.isEmptyDaftarHasilPanen() == false) {
+            System.out.println("==================================");
+            System.out.println("Jual Hasil Panen: ");
+            gudang.printListHasilPanen();
+            System.out.println("| => " + (gudang.getSizeDaftarHasilPanen() + 1) + " Batal");
+            System.out.println("==================================");
+            System.out.print("=> Pilih Hasil Panen : ");
+            int menu = sc.nextInt();
+            do {
+                if (menu <= gudang.getSizeDaftarHasilPanen() && menu > 0) {
+                    System.out.printf("Hasil Panen %s Telah Dijual\n", gudang.getHasilPanen(menu).getNama());
+                    uang += gudang.jualHasilPanen(gudang.getHasilPanen(menu));
+
+                } else if (menu == (gudang.getSizeDaftarHasilPanen() + 1)) {
+                    return;
+                } else {
+                    System.out.println("Salah Pilih");
+                    return;
+                }
+            } while (!(menu < gudang.getSizeDaftarHasilPanen() && menu > 0));
+
+        } else {
+            System.out.println("Belum ada Hasil Panen untuk dijual");
+        }
+    }
+
+    public void kembalikanEnergi() {
+        int kekuranganEnergi = 100 - energi;
+        if (energi == 100) {
+            System.out.println("Energi Sudah Full");
+        } else {
+            boolean ulangiMenu;
+            do {
+                ulangiMenu = false;
+                System.out.println("\n=================================");
+                System.out.printf("| => 1. Fullkan Energi (Rp.%d)  |\n", kekuranganEnergi);
+                System.out.println("| => 2. Tambah Energi Custom    |");
+                System.out.println("| => 3. Batal                   |");
+                System.out.println("=================================");
+                System.out.print("=> Pilih Menu : ");
+                int menu = sc.nextInt();
+                do {
+                    if (!(menu > 0 && menu <= 3)) {
+                        System.out.println("Salah Pilih");
+                    }
+                } while (!(menu > 0 && menu <= 3));
+
+                switch (menu) {
+                    case 1:
+                        System.out.println();
+                        if (uang < kekuranganEnergi) {
+                            System.out.println("Uang Tidak Cukup");
+                        } else {
+                            System.out.printf("Bayar Rp.%d Y/N: ", kekuranganEnergi);
+                            String confrmFull = sc2.nextLine();
+                            if (confrmFull.equalsIgnoreCase("Y")) {
+                                uang -= kekuranganEnergi;
+                                energi += kekuranganEnergi;
+                                System.out.printf("Energi Ditambah %d (Sudah Full)\n", kekuranganEnergi);
+                            } else {
+                                ulangiMenu = true;
+                            }
+                        }
+                        break;
+
+                    case 2:
+                        System.out.println();
+                        System.out.printf("Tambah Berapa (1 - %d) : ", kekuranganEnergi);
+                        int tambahEnergi = sc.nextInt();
+                        if (tambahEnergi > kekuranganEnergi) {
+                            System.out.println("Kebanyakan, Melebihi Kapasitas");
+                        } else if (tambahEnergi <= 0) {
+                            System.out.println("Gabisa");
+                        } else {
+                            if (uang < tambahEnergi) {
+                                System.out.println("Uang Tidak Cukup");
+                                ulangiMenu = true;
+                            } else {
+                                System.out.printf("Bayar Rp.%d Y/N: ", tambahEnergi);
+                                String confrmByr = sc2.nextLine();
+                                if (confrmByr.equalsIgnoreCase("Y")) {
+                                    energi += tambahEnergi;
+                                    uang -= tambahEnergi;
+                                    System.out.printf("Energi Ditambah %d\n", tambahEnergi);
+                                } else {
+                                    ulangiMenu = true;
+                                }
+                            }
+                        }
+                        break;
+
+                    case 3:
+                        return;
+
+                    default:
+                        break;
+                }
+            } while (ulangiMenu == true);
+        }
+    }
 }

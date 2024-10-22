@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scInt = new Scanner(System.in);
         Scanner scStr = new Scanner(System.in);
-        Pemain pemain = new Pemain("Agus", 2000, 100); // Pemain dengan 1000 uang dan 100 energi
+        Pemain pemain = new Pemain("Agus", 2000, 90); // Pemain dengan 1000 uang dan 100 energi
         
         while (true) {
             menuAwal(pemain);
@@ -21,58 +21,31 @@ public class Main {
             } else if (menu == 5){
                 pemain.tanamiLahan();
             } else if (menu == 6){
+                pemain.jualHasilPanen();
+            } else if (menu == 7){
+                pemain.kembalikanEnergi();
+            } else if (menu == 8){
                 System.exit(0);
             } else {
                 System.out.println("Salah Pilih");
             }
         }
-
-
-        // // Pemain membeli bibit Padi dan menanamnya
-        // toko.beliBibit(pemain, padi);
-        // lahan.tanam(padi);
-
-        // // Simulasi beberapa hari
-        // for (int i = 0; i < 10; i++) {
-        //     waktu.majuHari();
-        //     cuaca.ubahCuaca();
-
-        //     // Misalnya kita ingin menyiram tanaman hanya pada hari genap
-        //     boolean disiramHariIni = (waktu.getHari() % 2 == 0);
-
-        //     lahan.cekDisiram(disiramHariIni); // Cek apakah tanaman disiram hari ini
-        //     lahan.tumbuh(); // Tanaman tumbuh setiap hari jika belum mati
-        // }
-
-        // // Coba panen
-        // lahan.panen();
     }
 
     private static void menuAwal(Pemain pemain){
         System.out.println("\n============================================================");
-        System.out.printf("| NamaPemain: %s, Uang: %d, Energi: %d/100\n", pemain.getNama(), pemain.getUang() ,pemain.getEnergi());
+        System.out.printf("| NamaPemain: %s, Uang: Rp.%d, Energi: %d/100\n", pemain.getNama(), pemain.getUang() ,pemain.getEnergi());
         System.out.println("============================================================");
         System.out.println("| => 1. Beli Lahan");
         System.out.println("| => 2. Beli Bibit");
         System.out.println("| => 3. Tampilkan Daftar Bibit");
         System.out.println("| => 4. Tampilkan Daftar Lahan");
         System.out.println("| => 5. Mulai Menanam");
-        System.out.println("| => 6. Keluar");
+        System.out.println("| => 6. Jual Hasil Panen");
+        System.out.println("| => 7. Kembalikan Energi");
+        System.out.println("| => 8. Keluar");
         System.out.println("============================================================");
-
         System.out.print("=> Pilih Menu : ");
 
-    }
-
-    public static void clear() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

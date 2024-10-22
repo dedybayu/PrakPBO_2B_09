@@ -41,11 +41,19 @@ public class Lahan {
         }
     }
 
-    public void panen() {
+    public Tanaman panen() {
         if (tanaman != null) {
-            tanaman.panen();
+            boolean jadiPanen = tanaman.panen();
+            if (jadiPanen == true) {
+                Tanaman tempTanaman = tanaman;
+                tanaman = null;
+                return tempTanaman;
+            } else {
+                return null;
+            }
         } else {
             System.out.println("Tidak ada tanaman untuk dipanen.");
+            return null;
         }
     }
 
@@ -78,6 +86,7 @@ public class Lahan {
             } else {
                 System.out.println("Kondisi Tanaman " + tanaman.getNama() + " Sedang Sakit");
             }
+            System.out.printf("Sisa Waktu Panen %s tinggal %d Hari Lagi\n", tanaman.getNama(), tanaman.getRemaningWaktuPanen());
             System.out.println("=============================================\n");
         } else {
             System.out.println("=============================================");

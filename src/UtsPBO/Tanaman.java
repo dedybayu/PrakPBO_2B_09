@@ -11,11 +11,12 @@ public abstract class Tanaman {
     protected boolean siapPanen;
     protected int hariTidakDisiram;
 
-    public Tanaman(String nama, int waktuPanen, int kebutuhanAir, int hargaBibit) {
+    public Tanaman(String nama, int waktuPanen, int kebutuhanAir, int hargaBibit, int hargaPanen) {
         this.nama = nama;
         this.waktuPanen = waktuPanen;
         this.kebutuhanAir = kebutuhanAir;
         this.hargaBibit = hargaBibit;
+        this.hargaPanen = hargaPanen;
         this.sakit = false;
         this.mati = false;
         this.siapPanen = false;
@@ -30,30 +31,41 @@ public abstract class Tanaman {
         return hargaBibit;
     }
 
+    public int getHargaPanen(){
+        return hargaPanen;
+    }
+
     public abstract void tumbuh();
 
-    public void panen() {
+    public int getRemaningWaktuPanen(){
+        return waktuPanen;
+    }
+
+    public boolean panen() {
         if (mati) {
             System.out.println(nama + " sudah mati, tidak bisa dipanen.");
+            return false;
         } else if (waktuPanen <= 0 && !sakit) {
             System.out.println(nama + " dipanen!");
-
+            return true;
         } else if (sakit) {
             System.out.println(nama + " sakit, tidak bisa dipanen.");
+            return false;
         } else {
             System.out.println(nama + " belum siap dipanen.");
+            return false;
         }
     }
 
-    public void kenaHama() {
-        sakit = true;
-        System.out.println(nama + " terkena hama!");
-    }
+    // public void kenaHama() {
+    //     sakit = true;
+    //     System.out.println(nama + " terkena hama!");
+    // }
 
-    public void sembuh() {
-        sakit = false;
-        System.out.println(nama + " sembuh dari hama.");
-    }
+    // public void sembuh() {
+    //     sakit = false;
+    //     System.out.println(nama + " sembuh dari hama.");
+    // }
 
     public void siram() {
         if (!mati) {
