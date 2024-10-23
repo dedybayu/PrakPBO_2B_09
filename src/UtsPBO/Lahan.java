@@ -4,7 +4,6 @@ public class Lahan {
     private int idLahan;
     private String jenisTanah;
     private int harga;
-
     private Tanaman tanaman;
 
     public Lahan(String jenisTanah, int harga) {
@@ -12,15 +11,15 @@ public class Lahan {
         this.harga = harga;
     }
 
-    public int getId(){
+    public int getId() {
         return idLahan;
     }
 
-    public void setId(int idLahan){
+    public void setId(int idLahan) {
         this.idLahan = idLahan;
     }
 
-    public int getHarga(){
+    public int getHarga() {
         return harga;
     }
 
@@ -29,7 +28,7 @@ public class Lahan {
         System.out.println("Menanam " + tanaman.nama + " di lahan dengan jenis tanah " + jenisTanah);
     }
 
-    public Tanaman getTanaman(){
+    public Tanaman getTanaman() {
         return tanaman;
     }
 
@@ -38,6 +37,35 @@ public class Lahan {
             tanaman.siram();
         } else {
             System.out.println("Tidak ada tanaman di lahan.");
+        }
+    }
+
+    public void terkenaHama(){
+        tanaman.kenaHama();
+    }
+
+    public boolean isTerkenaHama(){
+        return tanaman.isKenaHama();
+    }
+
+    public boolean isTerkenaPenyakit(){
+        return tanaman.isSakit();
+    }
+
+    public void berantasHama(){
+        tanaman.berantasHama();
+    }
+
+    public void sembuhkanPenyakit(){
+        tanaman.sembuhkanPenyakit();
+    }
+
+    public void cabutTanamanMati(){
+        if (tanaman.isMati() == true) {
+            System.out.println("Tanaman " + tanaman.getNama() + " Telah Dicabut");
+            tanaman = null;
+        } else {
+            System.out.println("Tanaman Masih Hidup");
         }
     }
 
@@ -67,11 +95,11 @@ public class Lahan {
 
     public void tidakDisiram() {
         if (tanaman != null) {
-                tanaman.tidakDisiram();
+            tanaman.tidakDisiram();
         }
     }
 
-    public void printDetailLahan(){
+    public void printDetailLahan() {
         System.out.println("=============================================");
         System.out.println("Jenis Tanah : " + jenisTanah);
         if (tanaman != null) {
@@ -81,12 +109,18 @@ public class Lahan {
             } else {
                 System.out.println("Tanaman " + tanaman.getNama() + " Sudah Mati");
             }
-            if (tanaman.isSakit() == false){
+            if (tanaman.isSakit() == false) {
                 System.out.println("Kondisi Tanaman " + tanaman.getNama() + " Masih Sehat");
             } else {
                 System.out.println("Kondisi Tanaman " + tanaman.getNama() + " Sedang Sakit");
             }
-            System.out.printf("Sisa Waktu Panen %s tinggal %d Hari Lagi\n", tanaman.getNama(), tanaman.getRemaningWaktuPanen());
+            if (tanaman.isKenaHama() == true) {
+                System.out.println("Kondisi Tanaman " + tanaman.getNama() + " Terkena Hama");
+            } else {
+                System.out.println("Kondisi Tanaman " + tanaman.getNama() + " Tidak Terkena Hama");
+            }
+            System.out.printf("Sisa Waktu Panen %s tinggal %d Hari Lagi\n", tanaman.getNama(),
+                    tanaman.getRemaningWaktuPanen());
             System.out.println("=============================================\n");
         } else {
             System.out.println("=============================================");

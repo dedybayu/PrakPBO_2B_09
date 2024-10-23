@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Gudang {
     private List<Tanaman> daftarHasilPanen = new ArrayList<>();
 
-    public void addHasilPanen(Tanaman hasilPanen ){
+    public void addHasilPanen(Tanaman hasilPanen){
         daftarHasilPanen.add(hasilPanen);
     }
 
@@ -14,7 +14,7 @@ public class Gudang {
         return uang;
     }
 
-    public Tanaman getHasilPanen(int index) {
+    public Tanaman getHasilPanen(int index){
         Tanaman hasilPanen = daftarHasilPanen.get(index - 1);
         return hasilPanen;
     }

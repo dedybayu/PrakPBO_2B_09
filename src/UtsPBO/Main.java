@@ -1,30 +1,30 @@
 package UtsPBO;
 
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scInt = new Scanner(System.in);
-        Scanner scStr = new Scanner(System.in);
         Pemain pemain = new Pemain("Agus", 2000, 90); // Pemain dengan 1000 uang dan 100 energi
-        
+
         while (true) {
             menuAwal(pemain);
             int menu = scInt.nextInt();
             if (menu == 1) {
                 pemain.beliLahan();
-            } else if (menu == 2){
+            } else if (menu == 2) {
                 pemain.beliBibit();
-            } else if (menu == 3){
+            } else if (menu == 3) {
                 pemain.tampilDaftarBibit();
-            } else if (menu == 4){
+            } else if (menu == 4) {
                 pemain.tampilkanDaftarLahan();
-            } else if (menu == 5){
+            } else if (menu == 5) {
                 pemain.tanamiLahan();
-            } else if (menu == 6){
+            } else if (menu == 6) {
                 pemain.jualHasilPanen();
-            } else if (menu == 7){
+            } else if (menu == 7) {
                 pemain.kembalikanEnergi();
-            } else if (menu == 8){
+            } else if (menu == 8) {
                 System.exit(0);
             } else {
                 System.out.println("Salah Pilih");
@@ -32,9 +32,10 @@ public class Main {
         }
     }
 
-    private static void menuAwal(Pemain pemain){
+    private static void menuAwal(Pemain pemain) {
         System.out.println("\n============================================================");
-        System.out.printf("| NamaPemain: %s, Uang: Rp.%d, Energi: %d/100\n", pemain.getNama(), pemain.getUang() ,pemain.getEnergi());
+        System.out.printf("| NamaPemain: %s, Uang: Rp.%d, Energi: %d/100\n", pemain.getNama(), pemain.getUang(),
+                pemain.getEnergi());
         System.out.println("============================================================");
         System.out.println("| => 1. Beli Lahan");
         System.out.println("| => 2. Beli Bibit");

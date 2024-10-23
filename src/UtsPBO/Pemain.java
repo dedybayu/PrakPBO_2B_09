@@ -113,11 +113,14 @@ public class Pemain {
             }
             boolean ulangMenu = true;
             boolean disiram = false;
+            boolean hamaDibasmi = false;
 
             do {
-
                 if (waktu.getKondisiCuaca().equalsIgnoreCase("Hujan")) {
                     disiram = true;
+                }
+                if ((waktu.isAdaHama() == true) && (hamaDibasmi == false) && (lahan.getTanaman() != null)) {
+                    lahan.terkenaHama();
                 }
 
                 if (energi > 0) {
@@ -125,23 +128,26 @@ public class Pemain {
                     System.out.printf("| NamaPemain: %s, Uang: Rp.%d, Energi: %d/100\n", nama, uang, energi);
                     System.out.println("| ANDA BERADA DI LAHAN " + lahan.getId() + " Hari ke " + waktu.getHari() + ", "
                             + waktu.getStrHari());
-                    waktu.printDetailCuaca();
+                    waktu.printDetail(lahan);
                     System.out.println("============================================================");
                     System.out.println("| 1 => Tanami Tanaman di Lahan");
                     System.out.println("| 2 => Siram Lahan");
                     System.out.println("| 3 => Cek Info Lahan");
                     System.out.println("| 4 => Maju Hari");
-                    System.out.println("| 5 => Panen");
-                    System.out.println("| 6 => Keluar");
+                    System.out.println("| 5 => Berantas Hama");
+                    System.out.println("| 6 => Sembuhkan Penyakit");
+                    System.out.println("| 7 => Panen");
+                    System.out.println("| 8 => Cabut Tanaman");
+                    System.out.println("| 9 => Keluar");
                     System.out.println("============================================================");
                     int menu;
                     do {
                         System.out.print("=> Pilih Menu : ");
                         menu = sc.nextInt();
-                        if (menu < 1 || menu > 6) {
+                        if (menu < 1 || menu > 9) {
                             System.out.println("Salah Pilih. Silakan pilih antara 1 sampai 5.");
                         }
-                    } while (menu < 1 || menu > 6);
+                    } while (menu < 1 || menu > 9);
 
                     switch (menu) {
                         case 1:
@@ -206,12 +212,61 @@ public class Pemain {
                                 }
                                 lahan.tumbuh();
                             }
-
-                            waktu.majuHari();
                             disiram = false;
+                            hamaDibasmi = false;
+                            waktu.majuHari();
                             break;
 
                         case 5:
+                            if (lahan.getTanaman() != null) {
+                                if (lahan.isTerkenaHama() == true) {
+                                    if (uang > 50) {
+                                        System.out.print("Berantas Hama (Rp.50) Y/N: ");
+                                        String brntsHama = sc2.nextLine();
+                                        if (brntsHama.equalsIgnoreCase("Y")) {
+                                            uang -= 50;
+                                            hamaDibasmi = true;
+                                            lahan.berantasHama();
+                                        } else {
+                                            System.out.println("Batal");
+                                        }
+                                    } else {
+                                        System.out.println("Siapkan Uang Minimal Rp.50");
+                                    }
+                                } else {
+                                    System.out.println("Tanaman Tidak Terkena Hama");
+                                }
+                            } else {
+                                System.out.println("Lahan Belum Ditanami");
+                            }
+
+                            break;
+
+                        case 6:
+                            if (lahan.getTanaman() != null) {
+                                if (lahan.isTerkenaPenyakit() == true) {
+                                    if (uang > 50) {
+                                        System.out.print("Sembuhkan Penyakit (Rp.50) Y/N: ");
+                                        String brntsHama = sc2.nextLine();
+                                        if (brntsHama.equalsIgnoreCase("Y")) {
+                                            uang -= 50;
+                                            lahan.berantasHama();
+                                        } else {
+                                            System.out.println("Batal");
+                                        }
+                                    } else {
+                                        System.out.println("Siapkan Uang Minimal Rp.50");
+                                    }
+                                } else {
+                                    System.out.println("Tanaman Tidak Terkena Penyakit");
+                                }
+                            } else {
+                                System.out.println("Lahan Belum Ditanami");
+                            }
+
+                            break;
+
+                        case 7:
                             Tanaman hasilPanen = lahan.panen();
                             if (hasilPanen != null) {
                                 gudang.addHasilPanen(hasilPanen);
@@ -219,7 +274,11 @@ public class Pemain {
                             }
                             break;
 
-                        case 6:
+                        case 8:
+                            lahan.cabutTanamanMati();
+                            break;
+                        
+                        case 9:
                             ulangMenu = false;
                             break;
                     }

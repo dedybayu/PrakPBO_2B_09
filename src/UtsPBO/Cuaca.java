@@ -11,8 +11,8 @@ public class Cuaca {
 
     public void ubahCuaca() {
         Random random = new Random();
-        int cuaca = random.nextInt(3); // 0 = Cerah, 1 = Hujan, 2 = Berawan
-        suhu = random.nextInt(15) + 20; // Suhu antara 20 dan 35 derajat
+        int cuaca = random.nextInt(3); 
+        suhu = random.nextInt(15) + 20; 
 
         switch (cuaca) {
             case 0:

@@ -2,7 +2,7 @@ package UtsPBO;
 
 public class Sayuran extends Tanaman {
     public Sayuran() {
-        super("Sayuran", 3, 1, 200, 900); // Sayuran siap panen dalam 3 hari dan butuh 1 air/hari
+        super("Sayuran", 3, 1, 200, 900); 
     }
 
     @Override

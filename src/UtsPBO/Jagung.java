@@ -2,7 +2,7 @@ package UtsPBO;
 
 public class Jagung extends Tanaman {
     public Jagung() {
-        super("Jagung", 5, 2, 300, 1000); // Jagung siap panen dalam 5 hari dan butuh 2 air/hari
+        super("Jagung", 5, 2, 300, 1000);
     }
 
     @Override
@@ -11,5 +11,3 @@ public class Jagung extends Tanaman {
         System.out.println("Jagung tumbuh. Sisa waktu panen: " + waktuPanen + " hari.");
     }
 }
-
-
