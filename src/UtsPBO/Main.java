@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scInt = new Scanner(System.in);
-        Pemain pemain = new Pemain("Agus", 2000, 90); // Pemain dengan 1000 uang dan 100 energi
+        Pemain pemain = new Pemain("Agus", 2000, 100); // Pemain dengan 1000 uang dan 100 energi
 
         while (true) {
             menuAwal(pemain);
